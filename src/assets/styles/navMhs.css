@@ -1,0 +1,41 @@
+@media only screen and (min-width: 381px) and (max-width: 768px) {
+  #navbar-right {
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 12px !important;
+    margin-top: -8px;
+  }
+  .navbar-collapse {
+    text-align: center;
+  }
+  .login {
+    width: 10%;
+    margin: 12px 300px;
+  }
+  .nav {
+    display: block;
+  }
+  #btnProfile {
+    margin-right: 0px;
+  }
+}
+
+/* MOBILE */
+@media only screen and (max-width: 380px) {
+  #navbar-right {
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 12px;
+    margin-bottom: 12px !important;
+  }
+  .navbar-collapse {
+    text-align: center;
+  }
+  .nav {
+    display: block;
+  }
+  .login {
+    width: 20%;
+    margin: 12px 142px;
+  }
+}
