@@ -2,7 +2,11 @@ import apiClient from "../apiClient";
 import { PENDAFTARAN_URL } from "../apiUrl";
 
 export const postPendaftaranApi = (id, data) => {
-  return apiClient.post(`${PENDAFTARAN_URL}/${id}`, data);
+  return apiClient.post(`${PENDAFTARAN_URL}/${id}`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 export const deletePendaftaranApi = (id) => {
@@ -18,5 +22,5 @@ export const getPendaftaranByNimApi = (nim, params) => {
 };
 
 export const postValidateDataApi = (id, data) => {
-  return apiClient.post(`${PENDAFTARAN_URL}/penerimaans/${id}`, data);
+  return apiClient.post(`${PENDAFTARAN_URL}/penerimaan/${id}`, data);
 };

@@ -1,5 +1,6 @@
 import apiClient from "../apiClient";
 import {
+  JADWAL_URL,
   SEVIMA_DOSEN_URL,
   SEVIMA_KELAS_URL,
   SEVIMA_KRS_URL,
@@ -76,4 +77,12 @@ export const getMatkulApi = () => {
 
 export const getPraktikanApi = (params) => {
   return apiClient.get(PRAKTIKAN_URL, { params });
+};
+
+export const postSevimaJadwal = (data) => {
+  return apiClient.post(JADWAL_URL, data);
+};
+
+export const postSevimaKrs = (data) => {
+  return apiClient.post(SEVIMA_KRS_URL, data);
 };

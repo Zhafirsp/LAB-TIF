@@ -25,6 +25,7 @@ const ModalEditNilai = ({
   const [selectId, setSelectId] = useState();
 
   const [editingRowIndex, setEditingRowIndex] = useState(null);
+  const [alertError, setAlertError] = useState(false);
 
   const handleChange = (name, value) => {
     setDataForm({
@@ -42,14 +43,22 @@ const ModalEditNilai = ({
 
     // console.log(saveData);
 
-    handleSubmit(selectId, saveData);
-    // setOpenSelect(false);
-    setEditingRowIndex(null);
-    setDataForm({
-      cpmk: null,
-      tugas_ke: null,
-      nilai: null,
-    });
+    if (
+      dataForm?.cpmk === null ||
+      dataForm?.tugas_ke === null ||
+      dataForm?.nilai === null
+    ) {
+      setAlertError(true);
+    } else {
+      handleSubmit(selectId, saveData);
+      // setOpenSelect(false);
+      setEditingRowIndex(null);
+      setDataForm({
+        cpmk: null,
+        tugas_ke: null,
+        nilai: null,
+      });
+    }
   };
 
   return (
@@ -89,7 +98,10 @@ const ModalEditNilai = ({
           }}
         >
           <div className="modal-header">
-            <h5 className="modal-title">{title}</h5>
+            <div>
+              <h5 className="modal-title">{`Kelas: ${data?.nama_kelas}`}</h5>
+              <h5 className="modal-title">{`Kode MK: ${data?.kode_mk}`}</h5>
+            </div>
             <button
               type="button"
               className="btn-close"
@@ -98,116 +110,157 @@ const ModalEditNilai = ({
             ></button>
           </div>
           <div className="modal-body">
-            {data?.tugas?.map((tugas, index) => {
-              const isEditing = editingRowIndex === index;
-              return (
-                <div className="d-flex align-items-center">
-                  <div className="d-flex align-items-center mx-1 mb-2">
-                    <label
-                      className="form-label input mx-2"
-                      htmlFor={`cpmk-${tugas?.nilai_id}-${index}`}
-                    >
-                      CPMK
-                    </label>
-                    {!isEditing ? (
-                      <span
-                        style={{ fontSize: "24px", fontWeight: 600 }}
-                        id={`cpmk-${tugas?.nilai_id}-${index}`}
-                        name={`cpmk-${tugas?.nilai_id}-${index}`}
-                      >
-                        {tugas?.cpmk}
-                      </span>
-                    ) : (
-                      <input
-                        onChange={(e) => handleChange("cpmk", e.target.value)}
-                        value={dataForm?.cpmk}
-                        type="text"
-                        // placeholder="Judul"
-                        className="form-control"
-                        id={`cpmk-${tugas?.nilai_id}-${index}`}
-                        name={`cpmk-${tugas?.nilai_id}-${index}`}
-                        style={{ width: "60px" }}
-                      />
-                    )}
-                  </div>
-                  <div className="d-flex align-items-center mx-1 mb-2">
-                    <label className="form-label input mx-2" htmlFor="tugas_ke">
-                      Tugas
-                    </label>
-                    {!isEditing ? (
-                      <span
-                        style={{ fontSize: "24px", fontWeight: 600 }}
-                        id={`tugas_ke-${tugas?.nilai_id}-${index}`}
-                        name={`tugas_ke-${tugas?.nilai_id}-${index}`}
-                      >
-                        {tugas?.tugas_ke}
-                      </span>
-                    ) : (
-                      <input
-                        onChange={(e) =>
-                          handleChange("tugas_ke", e.target.value)
-                        }
-                        value={dataForm?.tugas_ke}
-                        type="text"
-                        // placeholder="Judul"
-                        className="form-control"
-                        id={`tugas_ke-${tugas?.nilai_id}-${index}`}
-                        name={`tugas_ke-${tugas?.nilai_id}-${index}`}
-                        style={{ width: "60px" }}
-                      />
-                    )}
-                  </div>
-                  <div className="d-flex align-items-center mx-1 mb-2">
-                    <label className="form-label input mx-2" htmlFor="nilai">
-                      Nilai
-                    </label>
-                    {!isEditing ? (
-                      <span
-                        style={{ fontSize: "24px", fontWeight: 600 }}
-                        id={`nilai-${tugas?.nilai_id}-${index}`}
-                        name={`nilai-${tugas?.nilai_id}-${index}`}
-                      >
-                        {tugas?.nilai}
-                      </span>
-                    ) : (
-                      <input
-                        onChange={(e) => handleChange("nilai", e.target.value)}
-                        value={dataForm?.nilai}
-                        type="text"
-                        // placeholder="Judul"
-                        className="form-control"
-                        id={`nilai-${tugas?.nilai_id}-${index}`}
-                        name={`nilai-${tugas?.nilai_id}-${index}`}
-                        style={{ width: "60px" }}
-                      />
-                    )}
-                  </div>
+            {alertError && (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  // justifyContent: "space-between",
+                }}
+              >
+                <p style={{ color: "red" }}>
+                  CPMK, Tugas, dan Nilai harus diisi
+                </p>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={() => setAlertError(false)}
+                  style={{
+                    color: "#fff",
+                    marginBottom: "18px",
+                    marginLeft: "8px",
+                  }}
+                ></button>
+              </div>
+            )}
+            {data?.tugas?.length > 0 ? (
+              <>
+                {data?.tugas?.map((tugas, index) => {
+                  const isEditing = editingRowIndex === index;
+                  return (
+                    <div className="d-flex align-items-center">
+                      <div className="d-flex align-items-center mx-1 mb-2">
+                        <label
+                          className="form-label input mx-2"
+                          htmlFor={`cpmk-${tugas?.nilai_id}-${index}`}
+                        >
+                          CPMK
+                        </label>
+                        {!isEditing ? (
+                          <span
+                            style={{ fontSize: "24px", fontWeight: 600 }}
+                            id={`cpmk-${tugas?.nilai_id}-${index}`}
+                            name={`cpmk-${tugas?.nilai_id}-${index}`}
+                          >
+                            {tugas?.cpmk}
+                          </span>
+                        ) : (
+                          <input
+                            onChange={(e) =>
+                              handleChange("cpmk", e.target.value)
+                            }
+                            value={dataForm?.cpmk}
+                            type="text"
+                            // placeholder="Judul"
+                            className="form-control"
+                            id={`cpmk-${tugas?.nilai_id}-${index}`}
+                            name={`cpmk-${tugas?.nilai_id}-${index}`}
+                            style={{ width: "60px" }}
+                          />
+                        )}
+                      </div>
+                      <div className="d-flex align-items-center mx-1 mb-2">
+                        <label
+                          className="form-label input mx-2"
+                          htmlFor="tugas_ke"
+                        >
+                          Tugas
+                        </label>
+                        {!isEditing ? (
+                          <span
+                            style={{ fontSize: "24px", fontWeight: 600 }}
+                            id={`tugas_ke-${tugas?.nilai_id}-${index}`}
+                            name={`tugas_ke-${tugas?.nilai_id}-${index}`}
+                          >
+                            {tugas?.tugas_ke}
+                          </span>
+                        ) : (
+                          <input
+                            onChange={(e) =>
+                              handleChange("tugas_ke", e.target.value)
+                            }
+                            value={dataForm?.tugas_ke}
+                            type="text"
+                            // placeholder="Judul"
+                            className="form-control"
+                            id={`tugas_ke-${tugas?.nilai_id}-${index}`}
+                            name={`tugas_ke-${tugas?.nilai_id}-${index}`}
+                            style={{ width: "60px" }}
+                          />
+                        )}
+                      </div>
+                      <div className="d-flex align-items-center mx-1 mb-2">
+                        <label
+                          className="form-label input mx-2"
+                          htmlFor="nilai"
+                        >
+                          Nilai
+                        </label>
+                        {!isEditing ? (
+                          <span
+                            style={{ fontSize: "24px", fontWeight: 600 }}
+                            id={`nilai-${tugas?.nilai_id}-${index}`}
+                            name={`nilai-${tugas?.nilai_id}-${index}`}
+                          >
+                            {tugas?.nilai}
+                          </span>
+                        ) : (
+                          <input
+                            onChange={(e) =>
+                              handleChange("nilai", e.target.value)
+                            }
+                            value={dataForm?.nilai}
+                            type="text"
+                            // placeholder="Judul"
+                            className="form-control"
+                            id={`nilai-${tugas?.nilai_id}-${index}`}
+                            name={`nilai-${tugas?.nilai_id}-${index}`}
+                            style={{ width: "60px" }}
+                          />
+                        )}
+                      </div>
 
-                  <div className="d-flex align-items-center mx-1 mb-2">
-                    {isEditing ? (
-                      <button
-                        type="button"
-                        className="btn btn-success"
-                        onClick={handleClickSave}
-                      >
-                        {loading ? "Loading..." : <PiCheckBold />}
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        className="btn btn-warning"
-                        onClick={() => {
-                          setEditingRowIndex(index);
-                          setSelectId(tugas?.nilai_id);
-                        }}
-                      >
-                        <PiPencilSimpleBold />
-                      </button>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+                      <div className="d-flex align-items-center mx-1 mb-2">
+                        {isEditing ? (
+                          <button
+                            type="button"
+                            className="btn btn-success"
+                            onClick={handleClickSave}
+                          >
+                            {loading ? "Loading..." : <PiCheckBold />}
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            className="btn btn-warning"
+                            onClick={() => {
+                              setEditingRowIndex(index);
+                              setSelectId(tugas?.nilai_id);
+                            }}
+                          >
+                            <PiPencilSimpleBold />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              <div className="d-flex align-items-center mx-5 my-2">
+                Belum ada penilaian
+              </div>
+            )}
           </div>
           {/* <div className="modal-footer">
             <button

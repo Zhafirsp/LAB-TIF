@@ -88,7 +88,7 @@ export default function Pengumuman() {
             </div> */}
           </div>
           <table
-            className="table table-bordered text-center"
+            class="table table-bordered text-center"
             style={{
               // backgroundColor: "#063554",
               // color: "white",

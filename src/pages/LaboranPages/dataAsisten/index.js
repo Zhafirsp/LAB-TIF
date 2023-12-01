@@ -44,17 +44,6 @@ export default function DataAsisten() {
     }
   };
 
-  // const deleteAsisten = (id) => {
-  //   try {
-  //     const remove = getDataAsistensApi(id);
-  //     setAsistens([]);
-  //     console.log(remove?.data?.data);
-  //     window.location.reload(true);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   useEffect(() => {
     getDataAsisten();
   }, []);

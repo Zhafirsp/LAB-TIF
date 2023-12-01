@@ -71,12 +71,13 @@
 // //   );
 // }
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GoogleDrivePicker from "./GoogleDrivePicker";
 import {
   postPendaftaranApi,
   deletePendaftaranApi,
 } from "../api/pendaftaran/pendaftaranApi";
+import { getDataProgramApi } from "../api/programs/programApi";
 import ModalConfirm from "./modal/ModalConfirm";
 
 export default function Uploader() {
@@ -85,13 +86,25 @@ export default function Uploader() {
 
   const [loading, setLoading] = useState(false);
 
+  const [listProgram, setListProgram] = useState([]);
+  const [program, setProgram] = useState();
+
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
+
+  const getDataPrograms = async () => {
+    try {
+      const result = await getDataProgramApi();
+      setListProgram(result?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     let formData = new FormData();
-    if (file?.data) formData.append("file_syarat", file?.data);
+    formData.append("file_syarat", file?.data);
     // const response = await fetch("v1/pendaftarans/3", {
     //   method: "POST",
     //   body: formData,
@@ -101,7 +114,7 @@ export default function Uploader() {
 
     setLoading(true);
     try {
-      const result = await postPendaftaranApi(1, formData);
+      const result = await postPendaftaranApi(program, formData);
 
       const responseWithBody = await result.json();
       if (result) setUrl(responseWithBody.publicUrl);
@@ -115,7 +128,7 @@ export default function Uploader() {
   const handleDelete = async () => {
     setLoadingDelete(true);
     try {
-      const result = await deletePendaftaranApi(1);
+      const result = await deletePendaftaranApi(program);
       if (result?.status === 200) {
         setOpenModalConfirm(false);
         setLoadingDelete(false);
@@ -134,6 +147,10 @@ export default function Uploader() {
     setFile(file);
   };
 
+  useEffect(() => {
+    getDataPrograms();
+  }, []);
+
   return (
     <>
       <ModalConfirm
@@ -147,9 +164,33 @@ export default function Uploader() {
       <label htmlFor="formFile" className="form-label fw-bold">
         Lengkapi Dokumen (Wajib)
       </label>
+      <div className="mb-3">
+        <select
+          className="form-select"
+          name="username"
+          aria-label="Default select example"
+          value={program}
+          onChange={(e) => setProgram(e.target.value)}
+        >
+          <option value="">Pilih Program...</option>
+          {listProgram?.map((data, index) => {
+            return (
+              <>
+                <option value={`${data?.program_id}`} key={index}>
+                  {`${data?.judul}`}
+                </option>
+              </>
+            );
+          })}
+          {/* <option value="Mahasiswa">Mahasiswa</option>
+                  <option value="Asisten">Asisten</option>
+                  <option value="Laboran">Laboran</option> */}
+        </select>
+      </div>
       <p htmlFor="formFile" className="form-label text-muted">
         Unggah file dalam format zip dengan ukuran maksimal 10MB
       </p>
+
       <form className="mb-3" onSubmit={handleSubmit}>
         <GoogleDrivePicker />
         <input

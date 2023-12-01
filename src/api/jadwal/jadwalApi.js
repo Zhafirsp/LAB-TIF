@@ -30,8 +30,8 @@ export const getJadwalPraktikumByKelasApi = (id, params) => {
   });
 };
 
-export const deleteJadwalByIdApi = (id) => {
-  return apiClient.delete(`${JADWAL_PIKET_URL}/${id}`);
+export const deleteJadwalByIdApi = (id, params) => {
+  return apiClient.delete(`${JADWAL_PIKET_URL}/${id}`, { params });
 };
 
 export const postPiketApi = (id, data) => {

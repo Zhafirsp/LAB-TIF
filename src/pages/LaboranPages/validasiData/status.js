@@ -16,8 +16,9 @@ export default function Status() {
   const [status, setStatus] = useState("");
 
   const validateData = async () => {
+    const saveData = { status };
     try {
-      const result = await postValidateDataApi(detailData?.daftar_id, status);
+      const result = await postValidateDataApi(detailData?.daftar_id, saveData);
       if (result?.status === 201) {
         navigate("/validasi");
       }
@@ -51,7 +52,7 @@ export default function Status() {
       <section id="teams" className="block teams-block">
         <Container fluid>
           <div className="title-holder">
-            <h2 className="fw-bold">JADWAL SEMESTER</h2>
+            <h2 className="fw-bold">VALIDASI DATA</h2>
             <hr />
             <div className="subtitle">LAB TIF</div>
           </div>
@@ -108,7 +109,7 @@ export default function Status() {
                     <option value="">Pilih...</option>
                     <option value="Menunggu">Menunggu</option>
                     <option value="Diterima">Diterima</option>
-                    <option value="Lulus">Lulus</option>
+                    <option value="Ditolak">Ditolak</option>
                   </select>
                   {/* <button
                     class="btn btn-secondary dropdown-toggle"

@@ -20,32 +20,29 @@ export const getDataUserByIdApi = (id, params) => {
 };
 
 export const putUserApi = (id, data) => {
-  return apiClient.put(`${USER_URL}/${id}`, data);
+  return apiClient.put(`${USER_URL}/${id}`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 export const deleteUserApi = (id) => {
   return apiClient.delete(`${USER_URL}/${id}`);
 };
 
-export const getSevimaDataUsersApi = (dataMhs) => {
-  return apiClient.get(
-    SEVIMA_USER_URL,
-    {
-      dataMhs: {
-        periodemasuk: "2019",
-        limit: 200,
-        ...dataMhs,
-      },
+const dataMhs = {
+  periode_masuk: "20221",
+  limit: 200,
+};
+
+export const getSevimaDataUsersApi = () => {
+  return apiClient.get(SEVIMA_USER_URL,{
+    dataMhs,
+    crossDomain: true,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
-    {
-      grant_type: "client_credentials",
-      client_id: "unpas",
-      client_secret: "gM5S5N%4",
-      crossDomain: true,
-      headers: {
-        Authorization: `Bearer ${(token, refreshToken)}`,
-        "Content-Type": "application/json",
-      },
-    }
-  );
+    });
 };

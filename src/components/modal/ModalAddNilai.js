@@ -1,9 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
+import { IoMdClose } from "react-icons/io";
 
 const ModalAddNilai = ({
   title,
   //   message,
+  alertError,
+  setAlertError,
+  alertMessage,
+  setAlertMessage,
   show,
   loading,
   handleClose,
@@ -34,7 +39,16 @@ const ModalAddNilai = ({
       nilai: Number(dataForm?.nilai),
     };
 
-    handleSubmit(saveData);
+    if (
+      dataForm?.cpmk === null ||
+      dataForm?.tugas_ke === null ||
+      dataForm?.nilai === null
+    ) {
+      setAlertError(true);
+      setAlertMessage("CPMK, Tugas, dan Nilai harus diisi");
+    } else {
+      handleSubmit(saveData);
+    }
   };
 
   return (
@@ -74,7 +88,7 @@ const ModalAddNilai = ({
           }}
         >
           <div className="modal-header">
-            <h5 className="modal-title">{title}</h5>
+            <h5 className="modal-title">Tambah Nilai</h5>
             <button
               type="button"
               className="btn-close"
@@ -83,6 +97,27 @@ const ModalAddNilai = ({
             ></button>
           </div>
           <div className="modal-body">
+            {alertError && (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  // justifyContent: "space-between",
+                }}
+              >
+                <p style={{ color: "red" }}>{alertMessage}</p>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={() => setAlertError(false)}
+                  style={{
+                    color: "#fff",
+                    marginBottom: "18px",
+                    marginLeft: "8px",
+                  }}
+                ></button>
+              </div>
+            )}
             <div className="d-flex align-items-center">
               <div className="d-flex align-items-center mx-2">
                 <label className="form-label input mx-2" htmlFor="cpmk">

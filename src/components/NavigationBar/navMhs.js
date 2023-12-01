@@ -93,22 +93,11 @@ export default function NavMhs() {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/civitas">Civitas</Nav.Link>
+                {/* <Nav.Link href="/civitas">Civitas</Nav.Link> */}
                 <Nav.Link href="/mendaftar">Cara Mendaftar</Nav.Link>
                 <Nav.Link href="/pendaftaran">Pendaftaran</Nav.Link>
                 <Nav.Link href="/pengumuman">Pengumuman</Nav.Link>
               </Nav>
-              {/* {NavLMhsData.map((item, index) => {
-                return (
-                  <Nav.Link key={index}>
-                    {item?.path ? (
-                      <Link to={item.path}>
-                        <span>{item.title}</span>
-                      </Link>
-                    ) : (<span>no menu</span>)}
-                  </Nav.Link>
-                );
-              })} */}
             </Navbar.Collapse>
           </ul>
           {/* RIGHT */}

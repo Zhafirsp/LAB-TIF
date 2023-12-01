@@ -20,6 +20,9 @@ const EditUser = () => {
   const [dataUser, setDataUser] = useState({});
   const [loading, setLoading] = useState(false);
 
+  const [file, setFile] = useState(null);
+  const [previewImage, setPreviewImage] = useState("");
+
   const [dataForm, setDataForm] = useState({
     email: "",
     no_hp: null,
@@ -31,6 +34,19 @@ const EditUser = () => {
       ...dataForm,
       [name]: value,
     });
+  };
+
+  const handleChangeFile = (e) => {
+    const image = e?.target?.files[0];
+    setFile(image);
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setPreviewImage(reader.result);
+      }
+    };
+    reader.readAsDataURL(file);
   };
 
   const getDetailUser = async () => {
@@ -59,8 +75,9 @@ const EditUser = () => {
     // formdata.append("username", dataForm.username);
     formdata.append("email", dataForm.email);
     formdata.append("no_hp", dataForm.no_hp);
+    formdata.append("image_url", file);
     try {
-      const result = await putUserApi(id, dataForm);
+      const result = await putUserApi(id, formdata);
       if (result?.status === 200) {
         setLoading(false);
         navigate("/data-user");
@@ -89,6 +106,12 @@ const EditUser = () => {
     }
   }, [dataUser]);
 
+  let displayImage = dataUser?.image_url || ProfileImage;
+
+  if (file) {
+    displayImage = previewImage;
+  }
+
   return (
     <>
       <section id="teams" className="block teams-block">
@@ -102,7 +125,7 @@ const EditUser = () => {
               <p className="fs-6 fw-bold">Foto Profile</p>
               <div className="d-flex justify-content-center mb-4">
                 <img
-                  src={ProfileImage}
+                  src={displayImage}
                   alt="Profile "
                   style={{ width: "180px" }}
                 />
@@ -112,12 +135,11 @@ const EditUser = () => {
                   
                 </label> */}
                 <input
+                  onChange={handleChangeFile}
                   //   value={formData?.username}
-                  // onChange={(e) => setUsername(e.target?.value)}
-                  //   onChange={(e) =>
-                  //     setData({ ...data, username: e.target.value })
-                  //   }
+
                   type="file"
+                  accept="image/*"
                   //   placeholder="NIP/NPM"
                   className="form-control"
                   id="profile-photo"

@@ -4,8 +4,12 @@ import { PiPencilSimpleBold } from "react-icons/pi";
 import { BiTrashAlt, BiPlusCircle } from "react-icons/bi";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import * as XLSX from "xlsx-js-style";
 
-import { getPraktikanApi } from "../../../api/SevimaData/SevimaApi";
+import {
+  getPraktikanApi,
+  postSevimaKrs,
+} from "../../../api/SevimaData/SevimaApi";
 import {
   getPenialainByKelasApi,
   postPenilaianApi,
@@ -31,6 +35,11 @@ export default function Penilaian() {
 
   const [loadingEdit, setLoadingEdit] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
+
+  const [loadingUpdate, setLoadingUpdate] = useState(false);
+
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertError, setAlertError] = useState(false);
 
   const getListPraktikan = async () => {
     try {
@@ -68,6 +77,8 @@ export default function Penilaian() {
     } catch (error) {
       console.log(error);
       setLoadingSave(false);
+      setAlertError(true);
+      setAlertMessage(error?.response?.data?.error);
     }
   };
 
@@ -83,6 +94,28 @@ export default function Penilaian() {
     } catch (error) {
       console.log(error);
       setLoadingEdit(false);
+      setAlertError(true);
+      setAlertMessage(error?.response?.data?.error);
+    }
+  };
+
+  const handleUpdateData = async () => {
+    setLoadingUpdate(true);
+    const saveData = {
+      periode: "20231",
+      limir: 6000,
+    };
+
+    try {
+      const result = await postSevimaKrs(saveData);
+
+      if (result?.status === 200) {
+        setLoadingUpdate(false);
+        getListPraktikan();
+      }
+    } catch (error) {
+      console.log(error);
+      setLoadingUpdate(false);
     }
   };
 
@@ -101,9 +134,31 @@ export default function Penilaian() {
     }
   };
 
+  const exportExcel = () => {
+    const excelData = listPraktikan?.map((item, index) => {
+      return {
+        No: index + 1,
+        NRP: item?.nim,
+        Nama: item?.Mahasiswa?.nama_mahasiswa,
+        T1: item?.tugas[0]?.nilai || "-",
+        T2: item?.tugas[1]?.nilai || "-",
+        T3: item?.tugas[2]?.nilai || "-",
+        T4: item?.tugas[3]?.nilai || "-",
+        T5: item?.tugas[4]?.nilai || "-",
+      };
+    });
+    const worksheet = XLSX.utils.json_to_sheet(excelData);
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet);
+    return XLSX.writeFile(workbook, `Penilaian.xlsx`);
+  };
+
   useEffect(() => {
     getListPraktikan();
   }, []);
+
+  console.log(listPraktikan);
 
   return (
     <>
@@ -111,6 +166,10 @@ export default function Penilaian() {
         show={openModal}
         handleClose={() => setOpenModal(false)}
         loading={loadingSave}
+        alertError={alertError}
+        setAlertError={setAlertError}
+        alertMessage={alertMessage}
+        setAlertMessage={setAlertMessage}
         handleSubmit={handleSave}
       />
 
@@ -118,6 +177,10 @@ export default function Penilaian() {
         show={openModalEdit}
         handleClose={() => setOpenModalEdit(false)}
         loading={loadingEdit}
+        alertError={alertError}
+        setAlertError={setAlertError}
+        alertMessage={alertMessage}
+        setAlertMessage={setAlertMessage}
         data={selectedData}
         handleSubmit={handleSaveEdit}
       />
@@ -149,6 +212,22 @@ export default function Penilaian() {
               langsung disini
             </div> */}
           </div>
+          <button
+            type="button"
+            onClick={handleUpdateData}
+            className="btn btn-warning col-4 mx-auto mb-2 text-white"
+            id="submit"
+          >
+            {loadingUpdate ? "Loading..." : "Update Data"}
+          </button>
+          <button
+            className="btn btn-primary col-4 mx-2 py-2 mb-2 text-white"
+            onClick={() => {
+              exportExcel();
+            }}
+          >
+            Cetak Nilai
+          </button>
           <table
             className="table table-bordered text-center"
             style={{
@@ -195,15 +274,26 @@ export default function Penilaian() {
                     <td>{index + 1}</td>
                     <td>{item?.nim}</td>
                     <td>{item?.Mahasiswa?.nama_mahasiswa}</td>
-                    {item?.tugas.map((tugasItem, tugasIndex) => (
-                      <td key={tugasIndex}>{tugasItem?.nilai || "-"}</td>
-                    ))}
-                    {new Array(5 - (item?.tugas.length || 0))
-                      .fill(null)
-                      .map((_, emptyIndex) => (
-                        <td key={emptyIndex}>{"-"}</td>
-                      ))}
-
+                    <td>
+                      {item?.tugas?.find((item) => item?.tugas_ke === 1)
+                        ?.nilai || "-"}
+                    </td>
+                    <td>
+                      {item?.tugas?.find((item) => item?.tugas_ke === 2)
+                        ?.nilai || "-"}
+                    </td>
+                    <td>
+                      {item?.tugas?.find((item) => item?.tugas_ke === 3)
+                        ?.nilai || "-"}
+                    </td>
+                    <td>
+                      {item?.tugas?.find((item) => item?.tugas_ke === 4)
+                        ?.nilai || "-"}
+                    </td>
+                    <td>
+                      {item?.tugas?.find((item) => item?.tugas_ke === 5)
+                        ?.nilai || "-"}
+                    </td>
                     <td>
                       <button
                         onClick={() => {

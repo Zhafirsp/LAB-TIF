@@ -14,7 +14,11 @@ export const getPengumumanByIdApi = (id, params) => {
 };
 
 export const postPengumumanApi = (data) => {
-  return apiClient.post(PENGUMUMAN_URL, data);
+  return apiClient.post(PENGUMUMAN_URL, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 export const putPengumumanApi = (id, data) => {

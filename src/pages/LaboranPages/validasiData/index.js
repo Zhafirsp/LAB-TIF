@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import NavLink from "react-bootstrap/esm/NavLink";
+import { getDataProgramApi } from "../../../api/programs/programApi";
 import { getPendaftaranByProgramApi } from "../../../api/pendaftaran/pendaftaranApi";
 import { PiPencilSimpleBold } from "react-icons/pi";
 import { BiTrashAlt } from "react-icons/bi";
@@ -8,10 +9,12 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 export default function Validasi() {
   const [listData, setListData] = useState([]);
+  const [listProgram, setListProgram] = useState([]);
+  const [program, setProgram] = useState();
 
-  const getDataPendaftaran = async () => {
+  const getDataPendaftaran = async (programId) => {
     try {
-      const result = await getPendaftaranByProgramApi(4);
+      const result = await getPendaftaranByProgramApi(programId);
       const data = result?.data?.data.map((item, index) => {
         return {
           ...item,
@@ -25,14 +28,30 @@ export default function Validasi() {
     }
   };
 
+  const getDataPrograms = async () => {
+    try {
+      const result = await getDataProgramApi();
+      setListProgram(result?.data?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const openInNewTab = (url) => {
     const newWindow = window.open(url, "_blank");
     newWindow.opener = null;
   };
 
   useEffect(() => {
-    getDataPendaftaran();
+    getDataPrograms();
   }, []);
+
+  useEffect(() => {
+    if (program) {
+      getDataPendaftaran(program);
+    }
+  }, [program]);
+
   return (
     <>
       <section id="teams" className="block teams-block">
@@ -42,52 +61,26 @@ export default function Validasi() {
             <hr />
             <div className="subtitle">LAB TIF</div>
           </div>
-          {/* <table
-            class="table table-bordered text-center"
-            style={{
-              backgroundColor: "#063554",
-              color: "white",
-              borderRadius: "10px",
-            }}
-          >
-            <thead>
-              <tr>
-                <th scope="col">No</th>
-                <th scope="col">Judul</th>
-                <th scope="col">Deskripsi</th>
-                <th scope="col">Due Date</th>
-                <th scope="col">Aksi</th>
-              </tr>
-            </thead>
-            <tbody
-              style={{
-                backgroundColor: "#fff",
-                color: "black",
-                borderRadius: "10px",
-              }}
+          <div className="mb-3">
+            <select
+              className="form-select"
+              name="username"
+              aria-label="Default select example"
+              value={program}
+              onChange={(e) => setProgram(e.target.value)}
             >
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>Otto</td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-secondary mx-2 text-white"
-                  >
-                    <AiOutlinePlus />
-                  </button>
-                  <button type="button" class="btn btn-warning mx-2 text-white">
-                    <PiPencilSimpleBold />
-                  </button>
-                  <button type="button" class="btn btn-danger">
-                    <BiTrashAlt />
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table> */}
+              <option value="">Pilih Program...</option>
+              {listProgram?.map((data, index) => {
+                return (
+                  <>
+                    <option value={`${data?.program_id}`} key={index}>
+                      {`${data?.judul}`}
+                    </option>
+                  </>
+                );
+              })}
+             </select>
+          </div>
 
           <table
             class="table table-bordered text-center"

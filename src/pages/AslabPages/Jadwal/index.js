@@ -11,14 +11,10 @@ import {
   putPiketApi,
 } from "../../../api/jadwal/jadwalApi";
 
+import { postSevimaJadwal } from "../../../api/SevimaData/SevimaApi";
+
 import { getDataAsistensApi } from "../../../api/asistens/asistensApi";
 import { useAuth } from "../../../context/AuthContext";
-// import {
-//   getDosenApi,
-//   getKelasApi,
-//   getKrsApi,
-//   getMatkulApi,
-// } from "../../../api/SevimaData/SevimaApi";
 import ModalConfirm from "../../../components/modal/ModalConfirm";
 
 export default function JadwalLab() {
@@ -36,6 +32,8 @@ export default function JadwalLab() {
   const [selectedNewAsisten, setSelectedNewAsisten] = useState("");
 
   const [loadingSave, setLoadingSave] = useState(false);
+
+  const [loadingUpdate, setLoadingUpdate] = useState(false);
 
   // const dataToSend = {
   //   periode_masuk: 20231,
@@ -188,10 +186,28 @@ export default function JadwalLab() {
     }
   };
 
+  const handleUpdateData = async () => {
+    const saveData = { periode: "20231", limit: 6000, kurikulum: "221" };
+    setLoadingUpdate(true);
+    try {
+      const result = await postSevimaJadwal(saveData);
+
+      if (result?.status === 200) {
+        setLoadingUpdate(false);
+        getJadwalPraktikum();
+      }
+    } catch (error) {
+      console.log(error);
+      setLoadingUpdate(false);
+    }
+  };
+
   const handleDelete = async () => {
     setLoadingDelete(true);
     try {
-      const result = await deleteJadwalByIdApi(selectedData?.kelas_id);
+      const result = await deleteJadwalByIdApi(selectedData?.kelas_id, {
+        periode: "20231",
+      });
       if (result?.status === 200) {
         setOpenModalConfirm(false);
         setLoadingDelete(false);
@@ -225,15 +241,17 @@ export default function JadwalLab() {
             <hr />
             <div className="subtitle">LAB TIF</div>
           </div>
-          <button
-            type="button"
-            // onClick={() => getSevimaDataUsers()}
-            className="btn btn-warning col-4 mx-auto mb-2 text-white"
-            id="submit"
-          >
-            {/* {loading ? "Loading..." : "Update Data"} */}
-            Update Data
-          </button>
+          {userData?.role === "Laboran" && (
+            <button
+              type="button"
+              onClick={handleUpdateData}
+              className="btn btn-warning col-4 mx-auto mb-2 text-white"
+              id="submit"
+            >
+              {loadingUpdate ? "Loading..." : "Update Data"}
+            </button>
+          )}
+
           {jadwal?.map((data, index) => {
             return (
               <table
