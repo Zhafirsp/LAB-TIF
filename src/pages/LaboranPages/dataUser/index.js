@@ -28,15 +28,11 @@ const UserList = () => {
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
 
-  // const axiosPrivate = useAxiosPrivate();
-  // const navigate = useNavigate();
-  // const location = useLocation();
-  // const { dataUser: data } = useContext(DataContext);
 
   const getSevimaDataUsers = async () => {
     setLoading(false);
     try {
-      const result = await getSevimaDataUsersApi({});
+      const result = await getSevimaDataUsersApi({ periode: "20231" });
       setUsers(result?.data?.data);
       setLoading(false);
     } catch (error) {

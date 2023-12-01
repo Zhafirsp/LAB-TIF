@@ -111,27 +111,6 @@ export default function Status() {
                     <option value="Diterima">Diterima</option>
                     <option value="Ditolak">Ditolak</option>
                   </select>
-                  {/* <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Pilihan
-                  </button>
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  >
-                    <a class="dropdown-item" href="#">
-                      Edit
-                    </a>
-                    <a class="dropdown-item" href="#">
-                      Hapus
-                    </a>
-                  </div> */}
                 </div>
                 <td>
                   <NavLink href="/validasi" id="btn-status">

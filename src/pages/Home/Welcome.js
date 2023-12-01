@@ -20,10 +20,10 @@ export default function Welcome () {
               <p>LAB-TIF</p>
             </div>
             <div className="col-sm-12 col-md-6 col-lg-4" id="contentWH">
-              <h1 id="headlineWH" style={{ marginLeft: "-20px" }}>
+              <p id="headlineWH">
               <span>Selamat datang</span> <br />
                 <span>Website LAB-TIF</span>
-              </h1>
+              </p>
               <p className="pb-4" id="decsWH">
               Ayo mulai mendaftar sebagai asisten LAB-TIF dengan menjadi asisten LAB-TIF kamu bisa mendapatkan pengalaman dan ilmu yang bermanfaat untuk masa depan kamu.
               </p>

@@ -79,7 +79,7 @@ export default function Validasi() {
                   </>
                 );
               })}
-             </select>
+            </select>
           </div>
 
           <table

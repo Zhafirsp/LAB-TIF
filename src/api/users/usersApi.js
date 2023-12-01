@@ -31,18 +31,6 @@ export const deleteUserApi = (id) => {
   return apiClient.delete(`${USER_URL}/${id}`);
 };
 
-const dataMhs = {
-  periode_masuk: "20221",
-  limit: 200,
-};
-
-export const getSevimaDataUsersApi = () => {
-  return apiClient.get(SEVIMA_USER_URL,{
-    dataMhs,
-    crossDomain: true,
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    });
+export const getSevimaDataUsersApi = (params) => {
+  return apiClient.get(SEVIMA_USER_URL, { params });
 };

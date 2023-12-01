@@ -35,60 +35,6 @@ export default function JadwalLab() {
 
   const [loadingUpdate, setLoadingUpdate] = useState(false);
 
-  // const dataToSend = {
-  //   periode_masuk: 20231,
-  // };
-
-  // const getJadwal = async () => {
-  //   try {
-  //     const result = await getJadwalApi();
-  //     setJadwal(result?.data?.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const getKelas = async () => {
-  //   try {
-  //     const result = await getKelasApi();
-  //     setJadwal(result?.data?.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // const getDosen = async () => {
-  //   try {
-  //     const result = await getDosenApi();
-  //     setJadwal(result?.data?.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // const getKrs = async () => {
-  //   try {
-  //     const result = await getKrsApi();
-  //     setJadwal(result?.data?.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // const getMatkul = async () => {
-  //   try {
-  //     const result = await getMatkulApi();
-  //     setJadwal(result?.data?.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getJadwal();
-  //   getKelas();
-  //   getDosen();
-  //   getKrs();
-  //   getMatkul();
-  // }, []);
-
   const getListAsisten = async () => {
     try {
       const result = await getDataAsistensApi();

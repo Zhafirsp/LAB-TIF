@@ -203,14 +203,7 @@ export default function Penilaian() {
               PENILAIAN PRAKTIKAN 11
             </h3>
             <h1 className="fs-1 fw-bold mt-3">LAB - TIF</h1>
-            {/* <h3 className="fs-3 fw-normal" style={{ letterSpacing: "7px" }}>
-              YANG TELAH LOLOS SELEKSI
-            </h3> */}
             <hr />
-            {/* <div className="subtitle">
-              Untuk daftar calon asisten LAB-TIF yang lolos bisa dilihat
-              langsung disini
-            </div> */}
           </div>
           <button
             type="button"

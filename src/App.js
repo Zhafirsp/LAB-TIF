@@ -126,9 +126,6 @@ function App() {
                 <Route path="/pengumuman" element={<Pengumuman />} />
               )}
               {userData?.role === "Mahasiswa" && (
-                <Route path="/civitas" element={<Civitas />} />
-              )}
-              {userData?.role === "Mahasiswa" && (
                 <Route path="/mendaftar" element={<Mendaftar />} />
               )}
               {userData?.role === "Mahasiswa" && (
