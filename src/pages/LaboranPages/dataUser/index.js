@@ -1,6 +1,4 @@
 import React, { Component, useEffect, useState, useMemo } from "react";
-// import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-// import { useNavigate, useLocation } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import NavLink from "react-bootstrap/esm/NavLink";
 import { PiPencilSimpleBold } from "react-icons/pi";
@@ -37,9 +35,6 @@ const UserList = () => {
       setLoading(false);
     } catch (error) {
       console.log(error);
-      // console.log(error.response.data);
-      // console.log(error.response.status);
-      // console.log(error.response.headers);
     }
   };
 
@@ -72,15 +67,6 @@ const UserList = () => {
     getSevimaDataUsers();
   }, []);
 
-  // const deleteUser = async (user_id) => {
-  //   try {
-  //     await axios.delete(`v1/users/${user_id}`);
-  //     getDataUsers([]);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const handleSort = (key) => {
     if (key === sortBy) {
       // Jika kolom yang sama diklik, balik arah penyortiran
@@ -99,8 +85,6 @@ const UserList = () => {
         return a[key] > b[key] ? -1 : 1;
       }
     });
-
-    // Perbarui state 'data' dengan data yang sudah diurutkan
     setUsers(sortedData);
   };
 
@@ -175,32 +159,6 @@ const UserList = () => {
                 borderRadius: "10px",
               }}
             >
-              {/* {authTokens ? (
-              {users && users.map((user, index) => (
-                  <tr key={user.user_id}>
-                    <td>{index + 1}</td>
-                    <td>{user.img_url}</td>
-                    <td>{user.username}</td>
-                    <td>{user.role}</td>
-                    <td>{user.email}</td>
-                    <td>{user.no_hp}</td>
-                    <td>
-                    <Link 
-                    to={`Edit/${user.id}`} 
-                    className='btn btn-warning mx-2 text-white'>
-                      <PiPencilSimpleBold />
-                    </Link>
-                    <button 
-                    onClick={e => deleteUser (user.id)} 
-                    className='btn btn-danger'>
-                      <BiTrashAlt />
-                    </button>
-                  </td>
-                  </tr>
-              ))}) :(
-                <p>No users to display</p>
-              )} */}
-
               {authTokens ? (
                 users &&
                 users.map((user, index) => (
@@ -233,26 +191,6 @@ const UserList = () => {
               ) : (
                 <p>No users to display</p>
               )}
-              {/* {users?.length ? (
-                      <tr>
-                        {users.map((user, index) => ( 
-                           <td key={index}>{user?.username}</td>
-                         ))}
-                         <td>
-                           <button
-                            type="button"
-                            className="btn btn-warning mx-2 text-white"
-                          >
-                             <PiPencilSimpleBold />
-                           </button>
-                           <button type="button" className="btn btn-danger">
-                             <BiTrashAlt />
-                           </button>
-                         </td>
-                       </tr>
-                     ) : (
-                       <p>No users to display</p>
-                     )} */}
             </tbody>
           </table>
           <NavLink

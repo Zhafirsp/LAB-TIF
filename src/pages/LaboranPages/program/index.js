@@ -41,17 +41,6 @@ export default function DataProgram() {
     }
   };
 
-  // const deleteProgram = (id) => {
-  //   try {
-  //     const remove = getDataProgramsApi(id);
-  //     setProgram([]);
-  //     console.log(remove?.data?.data);
-  //     window.location.reload(true);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   useEffect(() => {
     getDataPrograms();
   }, []);

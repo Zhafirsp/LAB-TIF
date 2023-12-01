@@ -1,6 +1,4 @@
 import React, { Component, useEffect, useState, useMemo } from "react";
-// import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-// import { useNavigate, useLocation } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { useParams, useNavigate } from "react-router-dom";
 import { postPengumumanApi } from "../../../api/pengumuman/pengumumanApi";
@@ -14,12 +12,10 @@ const AddPengumuman = () => {
   const [file, setFile] = useState();
 
   const handleSubmit = async () => {
-    // console.log(dataForm);
     const formData = new FormData();
     formData.append("judul", judul);
     formData.append("dokumen", file);
 
-    // console.log("Konten FormData:", formData);
     setLoading(true);
 
     try {

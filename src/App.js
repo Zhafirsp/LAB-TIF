@@ -2,7 +2,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Routes, Route, Navigate, Outlet, useLocation } from "react-router-dom";
 import React, { Component, useEffect, useState, useMemo } from "react";
-// import { useSelector, connect } from "react-redux";
 import jwtDecode from "jwt-decode";
 import Cookies from "js-cookie";
 import { AuthContext } from "./context/AuthContext";
@@ -10,7 +9,6 @@ import Login from "./pages/auth/Login";
 import NotFound from "./pages/errors/NotFound";
 import Welcome from "./pages/Home/Welcome";
 import Unauthorized from "./components/Unauthorized";
-import Civitas from "./pages/MahasiswaPages/Civitas";
 import Mendaftar from "./pages/MahasiswaPages/caraMendaftar";
 import Pendaftaran from "./pages/MahasiswaPages/pendaftaran";
 import Pengumuman from "./pages/LaboranPages/pengumuman";
@@ -28,7 +26,6 @@ import Presensi from "./pages/LaboranPages/kehadiranAsisten/presensi";
 import Validasi from "./pages/LaboranPages/validasiData";
 import Status from "./pages/LaboranPages/validasiData/status";
 import Register from "./pages/auth/Register";
-import JadwalPraktikum from "./components/table/jadwal";
 import JadwalLab from "./pages/AslabPages/Jadwal";
 import Penilaian from "./pages/AslabPages/Penilaian";
 import InputNilai from "./pages/AslabPages/Penilaian/nilai";
@@ -43,9 +40,6 @@ import AddProgram from "./pages/LaboranPages/program/add";
 import EditProgram from "./pages/LaboranPages/program/edit";
 
 function App() {
-  // const userRole = useSelector((state) => state.user.role);
-  // const isLogin = useSelector((state) => state.user.isLogin);
-  // const dispatch = useDispatch();
   const existingToken = localStorage.getItem("accessToken");
   const [authTokens, setAuthTokens] = useState(existingToken);
   const [userData, setUserData] = useState();
@@ -87,19 +81,8 @@ function App() {
     setIsLoading(false);
   }, [authTokens]);
 
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // console.log(checkLogin());
-
   return (
     <div className="App">
-      {/* {!isLogin && userRole === 'Mahasiswa' && <NavMhs/> || 
-      !isLogin && userRole === 'Laboran' && <NavLaboran/>} */}
-
-      {/* {!isLogin && <NavMhs />} */}
-
       <AuthContext.Provider value={dataContext}>
         {authTokens ? (
           <>
@@ -113,8 +96,6 @@ function App() {
               )}
             </header>
             <Routes>
-              {/* <Route path="/" element={<Welcome />} /> */}
-              {/* <Route path="*" element={<Navigate to="/" />} /> */}
 
               <Route path="unauthorized" element={<Unauthorized />} />
 
@@ -136,7 +117,6 @@ function App() {
               )}
 
               {/* Asisten Lab Routes */}
-              {/* <Route element={<RequireAuth allowedRoles={["Asisten"]} />}> */}
               {userData?.role === "Asisten" && (
                 <Route path="/" element={<JadwalLab />} />
               )}
@@ -145,9 +125,6 @@ function App() {
               )}
               {userData?.role === "Asisten" && (
                 <Route path="/input-nilai/:kelas_id" element={<InputNilai />} />
-              )}
-              {userData?.role === "Asisten" && (
-                <Route path="/Penilaian-mahasiswa" element={<Civitas />} />
               )}
               {userData?.role === "Asisten" && (
                 <Route path="/sertifikat" element={<Sertifikat />} />
@@ -247,7 +224,6 @@ function App() {
         ) : (
           <Routes>
             <Route path="/" element={<Login />} />
-            {/* <Route path="*" element={<Navigate to="/login" />} /> */}
           </Routes>
         )}
 
@@ -255,9 +231,6 @@ function App() {
           <Footer />
         </footer>
       </AuthContext.Provider>
-      {/* {checkLogin() && userRole === "Mahasiswa" && <NavMhs />}
-      {checkLogin() && userRole === "Laboran" && <NavLaboran />}
-      {checkLogin() && userRole === "Asisten" && <NavAslab />} */}
     </div>
   );
 }

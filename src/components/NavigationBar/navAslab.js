@@ -4,18 +4,12 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "../../assets/styles/navMhs.css";
 import { useNavigate, NavLink } from "react-router-dom";
-import useLogout from "../../hooks/useLogout";
-// import { DataContext } from "../../context/DataContext";
-import checkLogin from "../../utils/checkLogin";
 import { MdOutlineEdit as Edit, MdLogout as LogOut } from "react-icons/md";
-import Avatar from "react-avatar";
-import Logout from "../modal/Logout";
 import { useAuth } from "../../context/AuthContext";
 import { getProfileApi } from "../../api/profile/profileApi";
 
 export default function NavAslab() {
   const [profile, setProfile] = useState();
-  // const { getUserProfile: data } = useContext(DataContext);
   const { authTokens } = useAuth();
 
   const navigate = useNavigate();

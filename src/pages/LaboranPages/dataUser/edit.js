@@ -1,18 +1,8 @@
 import React, { Component, useEffect, useState, useMemo } from "react";
-// import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-// import { useNavigate, useLocation } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { useParams, useNavigate } from "react-router-dom";
-// import NavLink from "react-bootstrap/esm/NavLink";
-// import { PiPencilSimpleBold } from "react-icons/pi";
-// import { BiTrashAlt } from "react-icons/bi";
 import ProfileImage from "../../../assets/images/profile.png";
 import { getDataUserByIdApi, putUserApi } from "../../../api/users/usersApi";
-// import { Link } from "react-router-dom";
-// import axios from "axios";
-// import { useAuth } from "../../../context/AuthContext";
-// import * as IoIcons from "react-icons/io";
-
 const EditUser = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -50,20 +40,15 @@ const EditUser = () => {
   };
 
   const getDetailUser = async () => {
-    // setLoading(true);
     try {
       const result = await getDataUserByIdApi(id);
       if (result?.status === 200) {
-        // setLoading(false);
         setDataUser(result?.data?.data);
-        // console.log(result?.data?.data);
       } else {
-        // setLoading(false);
         setDataUser({});
       }
     } catch (error) {
       console.log(error);
-      //   setLoading(false);
       setDataUser({});
     }
   };
@@ -72,7 +57,6 @@ const EditUser = () => {
     setLoading(true);
 
     const formdata = new FormData();
-    // formdata.append("username", dataForm.username);
     formdata.append("email", dataForm.email);
     formdata.append("no_hp", dataForm.no_hp);
     formdata.append("image_url", file);
@@ -131,16 +115,11 @@ const EditUser = () => {
                 />
               </div>
               <div className="mb-3">
-                {/* <label className="form-label input" htmlFor="profile=photo">
-                  
-                </label> */}
                 <input
                   onChange={handleChangeFile}
-                  //   value={formData?.username}
 
                   type="file"
                   accept="image/*"
-                  //   placeholder="NIP/NPM"
                   className="form-control"
                   id="profile-photo"
                   name="profile-photo"
@@ -151,7 +130,6 @@ const EditUser = () => {
                   Username
                 </label>
                 <input
-                  //   onChange={handleChange}
                   value={dataUser?.username}
                   type="username"
                   placeholder="Nama"
@@ -192,7 +170,6 @@ const EditUser = () => {
             </div>
             <button
               onClick={handleSubmit}
-              //   onClick={(e) => deleteUser(user.id)}
               className="btn btn-success"
             >
               {loading ? "Loading..." : "Simpan"}

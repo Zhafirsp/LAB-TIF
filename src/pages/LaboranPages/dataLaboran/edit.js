@@ -1,22 +1,11 @@
 import React, { Component, useEffect, useState, useMemo } from "react";
-// import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-// import { useNavigate, useLocation } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { useParams, useNavigate } from "react-router-dom";
-// import NavLink from "react-bootstrap/esm/NavLink";
-// import { PiPencilSimpleBold } from "react-icons/pi";
-// import { BiTrashAlt } from "react-icons/bi";
 import { getDataUsersApi } from "../../../api/users/usersApi";
 import {
-  //   getDataLaboransApi,
   getLaboranByNIPApi,
-  //   postLaboranApi,
   putLaboranApi,
 } from "../../../api/laborans/laboransApi";
-// import { Link } from "react-router-dom";
-// import axios from "axios";
-// import { useAuth } from "../../../context/AuthContext";
-// import * as IoIcons from "react-icons/io";
 
 const EditLaboran = () => {
   const { nip } = useParams();
@@ -41,48 +30,37 @@ const EditLaboran = () => {
   };
 
   const getUserLaboran = async () => {
-    // setLoading(true);
     try {
       const result = await getDataUsersApi();
-      //   const resultLaboran = await getDataLaboransApi();
       if (result?.status === 200) {
-        // setLoading(false);
         const userLaboran = result?.data?.data?.filter(
           (item) => item?.role === "Laboran"
         );
         setUserList(userLaboran);
       } else {
-        // setLoading(false);
         setUserList([]);
       }
     } catch (error) {
       console.log(error);
-      //   setLoading(false);
       setUserList([]);
     }
   };
 
   const getDetailLaboran = async () => {
-    // setLoading(true);
     try {
       const result = await getLaboranByNIPApi(nip);
       if (result?.status === 200) {
-        // setLoading(false);
         setDataLaboran(result?.data?.data);
-        // console.log(result?.data?.data);
       } else {
-        // setLoading(false);
         setDataLaboran({});
       }
     } catch (error) {
       console.log(error);
-      //   setLoading(false);
       setDataLaboran({});
     }
   };
 
   const handleSubmit = async () => {
-    // console.log(dataForm);
     setLoading(true);
 
     try {
@@ -150,9 +128,6 @@ const EditLaboran = () => {
                       </>
                     );
                   })}
-                  {/* <option value="Mahasiswa">Mahasiswa</option>
-                  <option value="Asisten">Asisten</option>
-                  <option value="Laboran">Laboran</option> */}
                 </select>
               </div>
 

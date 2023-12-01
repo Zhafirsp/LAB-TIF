@@ -41,17 +41,6 @@ export default function DataLaboran() {
     }
   };
 
-  // const deleteLaboran = (id) => {
-  //   try {
-  //     const remove = getDataLaboransApi(id);
-  //     setLaborans([]);
-  //     console.log(remove?.data?.data);
-  //     window.location.reload(true);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   useEffect(() => {
     getDataLaborans();
   }, []);

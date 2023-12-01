@@ -1,6 +1,4 @@
 import React, { Component, useEffect, useState, useMemo } from "react";
-// import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-// import { useNavigate, useLocation } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { useParams, useNavigate } from "react-router-dom";
 import {
@@ -31,13 +29,11 @@ const EditPengumuman = () => {
   };
 
   const handleSubmit = async () => {
-    // console.log(dataForm);
     const formData = new FormData();
     if (data?.judul !== judul) formData.append("judul", judul);
     if (file) formData.append("dokumen", file);
     formData.append("is_publish", status);
 
-    // console.log("Konten FormData:", formData);
     setLoading(true);
 
     try {
@@ -109,7 +105,6 @@ const EditPengumuman = () => {
                   className="form-select"
                   aria-label="Default select example"
                   value={status}
-                  // onChange={(e) => setRole(e.target?.value)}
                   onChange={(e) => setStatus(e.target.value)}
                 >
                   <option value={true}>Aktif</option>

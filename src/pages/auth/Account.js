@@ -33,7 +33,6 @@ export default function Account() {
                 ) : (
                   <Avatar name={userLogin?.username} id="photo-profile" />
                 )}
-                {/* <img src={userLogin.image_url} alt="" /> */}
               </div>
               <div className="name-poin col-lg-8">
                 <h1>{userLogin?.fullname}</h1>
@@ -50,16 +49,10 @@ export default function Account() {
                   Profile
                 </p>
               </div>
-              {/* <div className="fav-issues-side">
-                <p type="button" className={toggleState === 2 ? "bars active-bars" : "bars"} onClick={() => toggleSide(2)}>
-                  Favorite Issues
-                </p>
-              </div> */}
               <div className="logout-side">
                 <p type="button" onClick={openModal}>
                   Logout
                 </p>
-                {/* <Logout showModal={showModal} setShowModal={setShowModal}/> */}
               </div>
             </div>
           </div>
@@ -69,7 +62,6 @@ export default function Account() {
               <Profile />
             </div>
             <div className={toggleState === 2 ? "active-content" : "content"}>
-              {/* <FavoriteIssue/> */}
             </div>
             <div className={toggleState === 3 ? "profile-right" : "content"}>
               {toggleState === 3 ? <ContactUs /> : <></>}

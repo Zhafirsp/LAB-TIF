@@ -13,7 +13,6 @@ import { useAuth } from "../../context/AuthContext";
 import { postLoginApi } from "../../api/auth/authApi";
 
 export default function Login() {
-  // const { setAuth } = useAuth();
   const { setAuthTokens } = useAuth();
 
   const navigate = useNavigate();
@@ -50,63 +49,9 @@ export default function Login() {
         toast("Login Failed", {
           type: "error",
         });
-        // console.log(err?.response.data);
-        // console.log(err?.response.status);
-        // console.log(err?.response.headers);
       }
     }
   };
-
-  // const onLogin = async () => {
-  //   try {
-  //     const response = await API().post(
-  //       `v1/auth/login`,
-  //       JSON.stringify({ username, password }),
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         credentials: "include", // Mengaktifkan kredensial (cookies)
-  //       }
-  //     );
-  //     console.log(JSON.stringify(response?.data));
-  //     //console.log(JSON.stringify(response));
-  //     const access_token = response?.data?.access_token;
-  //     const role = response?.data?.role;
-  //     // setAuth({ username, password, role, access_token });
-  //     setUsername("");
-  //     setPassword("");
-  //     navigate(from, { replace: true });
-  //     // if (response?.data?.role === "Mahasiswa") {
-  //     //   navigate('/mahasiswa');
-  //     // } else if (response?.data?.role === "Laboran") {
-  //     //   navigate('/laboran');
-  //     // } else if (response?.data?.role === "Asisten") {
-  //     //   navigate('/aslab');
-  //     // }
-  //   } catch (err) {
-  //     if (!err?.response) {
-  //       toast("No Server Response", {
-  //         type: "error",
-  //       });
-  //     } else if (err.response?.status === 400) {
-  //       toast("Missing Username or Password", {
-  //         type: "error",
-  //       });
-  //     } else if (err.response?.status === 401) {
-  //       toast("Unauthorized", {
-  //         type: "error",
-  //       });
-  //     } else {
-  //       toast("Login Failed", {
-  //         type: "error",
-  //       });
-  //       // console.log(err?.response.data);
-  //       // console.log(err?.response.status);
-  //       // console.log(err?.response.headers);
-  //     }
-  //   }
-  // };
 
   return (
     <>

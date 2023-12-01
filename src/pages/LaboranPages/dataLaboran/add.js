@@ -1,26 +1,16 @@
 import React, { Component, useEffect, useState, useMemo } from "react";
-// import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-// import { useNavigate, useLocation } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { useParams, useNavigate } from "react-router-dom";
-// import NavLink from "react-bootstrap/esm/NavLink";
-// import { PiPencilSimpleBold } from "react-icons/pi";
-// import { BiTrashAlt } from "react-icons/bi";
 import { getDataUsersApi } from "../../../api/users/usersApi";
 import {
   getDataLaboransApi,
   postLaboranApi,
 } from "../../../api/laborans/laboransApi";
-// import { Link } from "react-router-dom";
-// import axios from "axios";
-// import { useAuth } from "../../../context/AuthContext";
-// import * as IoIcons from "react-icons/io";
 
 const AddLaboran = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  //   const [dataUser, setDataUser] = useState({});
   const [loading, setLoading] = useState(false);
 
   const [userList, setUserList] = useState([]);
@@ -39,12 +29,10 @@ const AddLaboran = () => {
   };
 
   const getUserLaboran = async () => {
-    // setLoading(true);
     try {
       const result = await getDataUsersApi();
       const resultLaboran = await getDataLaboransApi();
       if (result?.status === 200) {
-        // setLoading(false);
         const userLaboran = result?.data?.data?.filter(
           (item) => item?.role === "Laboran"
         );
@@ -56,37 +44,15 @@ const AddLaboran = () => {
         );
         setUserList(filteredUserLaboran);
       } else {
-        // setLoading(false);
         setUserList([]);
       }
     } catch (error) {
       console.log(error);
-      //   setLoading(false);
       setUserList([]);
     }
   };
 
-  //   const getDetailUser = async () => {
-  //     // setLoading(true);
-  //     try {
-  //       const result = await getDataUserByIdApi(id);
-  //       if (result?.status === 200) {
-  //         // setLoading(false);
-  //         setDataUser(result?.data?.data);
-  //         // console.log(result?.data?.data);
-  //       } else {
-  //         // setLoading(false);
-  //         setDataUser({});
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //       //   setLoading(false);
-  //       setDataUser({});
-  //     }
-  //   };
-
   const handleSubmit = async () => {
-    // console.log(dataForm);
     setLoading(true);
 
     try {
@@ -106,20 +72,6 @@ const AddLaboran = () => {
   useEffect(() => {
     getUserLaboran();
   }, []);
-
-  //   useEffect(() => {
-  //     if (id) {
-  //       setDataForm({
-  //         email: dataUser?.email,
-  //         no_hp: dataUser?.no_hp,
-  //       });
-  //     } else {
-  //       setDataForm({
-  //         email: "",
-  //         no_hp: null,
-  //       });
-  //     }
-  //   }, [dataUser]);
 
   return (
     <>
@@ -152,9 +104,6 @@ const AddLaboran = () => {
                       </>
                     );
                   })}
-                  {/* <option value="Mahasiswa">Mahasiswa</option>
-                  <option value="Asisten">Asisten</option>
-                  <option value="Laboran">Laboran</option> */}
                 </select>
               </div>
 

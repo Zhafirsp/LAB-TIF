@@ -185,13 +185,6 @@ export default function Detail() {
             <div className="subtitle">LAB TIF</div>
           </div>
           <ExportButton
-            // onClick={() => {
-            //   setOpenSelect(true);
-            //   setSelectedData(asisten);
-            //   setSelectedKehadiran(asisten?.kehadiran);
-            //   setSelectedOldKehadiran(asisten?.kehadiran);
-            //   setSelectedAsisten(asisten?.pengganti_id);
-            // }}
             excelData={listDataReport}
             fileName="Kehadiran"
           />

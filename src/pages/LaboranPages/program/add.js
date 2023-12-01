@@ -1,22 +1,11 @@
 import React, { Component, useEffect, useState, useMemo } from "react";
-// import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-// import { useNavigate, useLocation } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { useNavigate } from "react-router-dom";
-// import NavLink from "react-bootstrap/esm/NavLink";
-// import { PiPencilSimpleBold } from "react-icons/pi";
-// import { BiTrashAlt } from "react-icons/bi";
 import { postProgramApi } from "../../../api/programs/programApi";
-// import { Link } from "react-router-dom";
-// import axios from "axios";
-// import { useAuth } from "../../../context/AuthContext";
-// import * as IoIcons from "react-icons/io";
 
 const AddProgram = () => {
-  //   const { id } = useParams();
   const navigate = useNavigate();
 
-  //   const [dataUser, setDataUser] = useState({});
   const [loading, setLoading] = useState(false);
 
   const [dataForm, setDataForm] = useState({
@@ -34,27 +23,7 @@ const AddProgram = () => {
     });
   };
 
-  //   const getDetailUser = async () => {
-  //     // setLoading(true);
-  //     try {
-  //       const result = await getDataUserByIdApi(id);
-  //       if (result?.status === 200) {
-  //         // setLoading(false);
-  //         setDataUser(result?.data?.data);
-  //         // console.log(result?.data?.data);
-  //       } else {
-  //         // setLoading(false);
-  //         setDataUser({});
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //       //   setLoading(false);
-  //       setDataUser({});
-  //     }
-  //   };
-
   const handleSubmit = async () => {
-    // console.log(dataForm);
     setLoading(true);
 
     try {
@@ -68,20 +37,6 @@ const AddProgram = () => {
       console.log(error);
     }
   };
-
-  //   useEffect(() => {
-  //     if (id) {
-  //       setDataForm({
-  //         email: dataUser?.email,
-  //         no_hp: dataUser?.no_hp,
-  //       });
-  //     } else {
-  //       setDataForm({
-  //         email: "",
-  //         no_hp: null,
-  //       });
-  //     }
-  //   }, [dataUser]);
 
   return (
     <>

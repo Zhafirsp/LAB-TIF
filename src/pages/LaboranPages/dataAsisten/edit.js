@@ -1,20 +1,11 @@
 import React, { Component, useEffect, useState, useMemo } from "react";
-// import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
-// import { useNavigate, useLocation } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { useParams, useNavigate } from "react-router-dom";
-// import NavLink from "react-bootstrap/esm/NavLink";
-// import { PiPencilSimpleBold } from "react-icons/pi";
-// import { BiTrashAlt } from "react-icons/bi";
 
 import {
   getAsistenByIdApi,
   putAsistenApi,
 } from "../../../api/asistens/asistensApi";
-// import { Link } from "react-router-dom";
-// import axios from "axios";
-// import { useAuth } from "../../../context/AuthContext";
-// import * as IoIcons from "react-icons/io";
 
 const EditAsisten = () => {
   const { id } = useParams();
@@ -37,26 +28,20 @@ const EditAsisten = () => {
   };
 
   const getDetailAsisten = async () => {
-    // setLoading(true);
     try {
       const result = await getAsistenByIdApi(id);
       if (result?.status === 200) {
-        // setLoading(false);
         setDataAsisten(result?.data?.data);
-        // console.log(result?.data?.data);
       } else {
-        // setLoading(false);
         setDataAsisten({});
       }
     } catch (error) {
       console.log(error);
-      //   setLoading(false);
       setDataAsisten({});
     }
   };
 
   const handleSubmit = async () => {
-    // console.log(dataForm);
     setLoading(true);
 
     try {

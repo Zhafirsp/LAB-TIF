@@ -4,16 +4,12 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "../../assets/styles/navMhs.css";
 import { useNavigate, NavLink } from "react-router-dom";
-import useLogout from "../../hooks/useLogout";
-import checkLogin from "../../utils/checkLogin";
 import {
   MdOutlineEdit as Edit,
   MdLogout as LogOut,
   MdClose as Close,
   MdPerson as User,
 } from "react-icons/md";
-import Avatar from "react-avatar";
-import Logout from "../modal/Logout";
 import { useAuth } from "../../context/AuthContext";
 import { getProfileApi } from "../../api/profile/profileApi";
 import { Link } from "react-router-dom";

@@ -1,20 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import * as Fa6Icons from "react-icons/fa6";
 import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
 import "../../assets/styles/navAdmin.css";
 import { IconContext } from "react-icons";
-import { useNavigate, NavLink, useLocation } from "react-router-dom";
-import useLogout from "../../hooks/useLogout";
-import { DataContext } from "../../context/DataContext";
-import checkLogin from "../../utils/checkLogin";
+import { useNavigate, NavLink } from "react-router-dom";
 import { MdOutlineEdit as Edit, MdLogout as LogOut } from "react-icons/md";
-import Avatar from "react-avatar";
-import Logout from "../modal/Logout";
-import Login from "../../pages/auth/Login";
 import { useAuth } from "../../context/AuthContext";
-import Nav from "react-bootstrap/Nav";
 
 export default function NavLaboran() {
   const [showModalConfirm, setShowModalConfirm] = useState(false);
@@ -32,7 +25,6 @@ export default function NavLaboran() {
   const HandleLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
-    // navigate("/login");
     setLogout();
   };
 
