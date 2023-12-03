@@ -83,7 +83,7 @@ export default function Validasi() {
           </div>
 
           <table
-            class="table table-bordered text-center"
+            className="table table-bordered text-center"
             style={{
               backgroundColor: "#063554",
               color: "white",
@@ -111,7 +111,7 @@ export default function Validasi() {
               {listData &&
                 listData.map((item, index) => {
                   return (
-                    <tr>
+                    <tr key={index}>
                       <th scope="row">{item?.no}</th>
                       <td>{item?.nim}</td>
                       <td>{item?.nama_mahasiswa}</td>
@@ -120,7 +120,7 @@ export default function Validasi() {
                         {item?.file_syarat ? (
                           <button
                             type="button"
-                            class="btn btn-primary my-1"
+                            className="btn btn-primary my-1"
                             onClick={() => openInNewTab(item?.file_syarat)}
                           >
                             Unduh
@@ -134,7 +134,7 @@ export default function Validasi() {
                         <NavLink href={`/status/${item?.nim}`} id="btn-status">
                           <button
                             type="button"
-                            class="btn btn-warning mx-2 text-white"
+                            className="btn btn-warning mx-2 text-white"
                           >
                             <PiPencilSimpleBold />
                           </button>

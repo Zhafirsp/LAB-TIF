@@ -28,7 +28,7 @@ export default function Presensi() {
             <div className="subtitle">LAB TIF</div>
           </div>
           <table
-            class="table table-bordered text-center"
+            className="table table-bordered text-center"
             style={{
               backgroundColor: "#063554",
               color: "white",
@@ -63,47 +63,47 @@ export default function Presensi() {
                     <td>{asisten.asisten_id}</td>
                     <td>{asisten.nama_asisten}</td>
                     <td>
-                      <div class="form-check form-check-inline">
+                      <div className="form-check form-check-inline">
                         <input
-                          class="btn-check"
+                          className="btn-check"
                           type="radio"
                           name="btnRadio"
                           id="presensiHadir"
                           value="option1"
                         />
                         <label
-                          class="form-check-label btn btn-outline-primary"
-                          for="presensiHadir"
+                          className="form-check-label btn btn-outline-primary"
+                          htmlFor="presensiHadir"
                         >
                           H
                         </label>
                       </div>
-                      <div class="form-check form-check-inline">
+                      <div className="form-check form-check-inline">
                         <input
-                          class="btn-check"
+                          className="btn-check"
                           type="radio"
                           name="btnRadio"
                           id="presensiAlfa"
                           value="option2"
                         />
                         <label
-                          class="form-check-label btn btn-outline-primary"
-                          for="presensiAlfa"
+                          className="form-check-label btn btn-outline-primary"
+                          htmlFor="presensiAlfa"
                         >
                           I
                         </label>
                       </div>
-                      <div class="form-check form-check-inline">
+                      <div className="form-check form-check-inline">
                         <input
-                          class="btn-check"
+                          className="btn-check"
                           type="radio"
                           name="btnRadio"
                           id="presensiIzin"
                           value="option3"
                         />
                         <label
-                          class="form-check-label btn btn-outline-primary"
-                          for="presensiIzin"
+                          className="form-check-label btn btn-outline-primary"
+                          htmlFor="presensiIzin"
                         >
                           S
                         </label>

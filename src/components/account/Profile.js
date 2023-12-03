@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import "../../assets/styles/account.css";
-import { GiTwoCoins } from "react-icons/gi";
+import { AiFillCamera } from "react-icons/ai";
 import { FaTree } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../context/DataContext";
 import Avatar from "react-avatar";
 import { Cloudinary } from "../../api/cloudinary/cloudinaryApi";
+import { ToastContainer, toast } from "react-toastify";
 // import { useAuth } from "../../../context/AuthContext";
 import { getProfileApi, getProfileEditApi } from "../../api/profile/profileApi";
 
@@ -142,7 +143,7 @@ export default function Profile() {
                 <div className="form-edit-profile">
                   <form id="form-edit-profile">
                     <div className="form-group">
-                      <label for="formGroupExampleInput">Full Name</label>
+                      <label htmlFor="formGroupExampleInput">Full Name</label>
                       <input
                         type="text"
                         className="form-control"
@@ -157,7 +158,7 @@ export default function Profile() {
                       />
                     </div>
                     <div className="form-group">
-                      <label for="formGroupExampleInput">Username</label>
+                      <label htmlFor="formGroupExampleInput">Username</label>
                       <input
                         type="text"
                         className="form-control"
@@ -173,7 +174,7 @@ export default function Profile() {
                       />
                     </div>
                     <div className="form-group">
-                      <label for="formGroupExampleInput">Email</label>
+                      <label htmlFor="formGroupExampleInput">Email</label>
                       <input
                         type="text"
                         className="form-control"

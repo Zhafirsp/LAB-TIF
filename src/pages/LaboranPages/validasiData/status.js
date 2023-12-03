@@ -57,7 +57,7 @@ export default function Status() {
             <div className="subtitle">LAB TIF</div>
           </div>
           <table
-            class="table table-bordered text-center"
+            className="table table-bordered text-center"
             style={{
               backgroundColor: "#063554",
               color: "white",
@@ -89,7 +89,7 @@ export default function Status() {
                   {detailData?.file_syarat ? (
                     <button
                       type="button"
-                      class="btn btn-primary my-1"
+                      className="btn btn-primary my-1"
                       onClick={() => openInNewTab(detailData?.file_syarat)}
                     >
                       Unduh
@@ -98,7 +98,7 @@ export default function Status() {
                     <div>Tidak ada file</div>
                   )}
                 </td>
-                <div class="dropdown">
+                <div className="dropdown">
                   <select
                     className="form-select"
                     name="username"
@@ -116,7 +116,7 @@ export default function Status() {
                   <NavLink href="/validasi" id="btn-status">
                     <button
                       type="button"
-                      class="btn btn-success mx-2"
+                      className="btn btn-success mx-2"
                       onClick={validateData}
                     >
                       <AiOutlineCheck />

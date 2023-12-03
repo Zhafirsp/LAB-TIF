@@ -4,6 +4,7 @@ import Profile from "../../components/account/Profile";
 import { DataContext } from "../../context/DataContext";
 import Avatar from "react-avatar";
 import Logout from "../../components/modal/Logout";
+import { Navbar } from "react-bootstrap";
 
 export default function Account() {
   const [toggleState, setToggleState] = useState(1);
@@ -54,17 +55,6 @@ export default function Account() {
                   Logout
                 </p>
               </div>
-            </div>
-          </div>
-
-          <div className="col-lg-8 col-md-12 col-sm-12 ">
-            <div className={toggleState === 1 ? "profile-right" : "content"}>
-              <Profile />
-            </div>
-            <div className={toggleState === 2 ? "active-content" : "content"}>
-            </div>
-            <div className={toggleState === 3 ? "profile-right" : "content"}>
-              {toggleState === 3 ? <ContactUs /> : <></>}
             </div>
           </div>
         </div>

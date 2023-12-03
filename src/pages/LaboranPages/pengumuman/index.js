@@ -81,7 +81,7 @@ export default function Pengumuman() {
             <hr />
           </div>
           <table
-            class="table table-bordered text-center"
+            className="table table-bordered text-center"
             style={{
               borderRadius: "10px",
             }}

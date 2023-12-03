@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+// eslint-disable-next-line react-hooks/rules-of-hooks
 import React, { useState, useEffect } from "react";
 import { PiPencilSimpleBold, PiCheckBold } from "react-icons/pi";
 
@@ -11,10 +11,6 @@ const ModalEditNilai = ({
   handleClose,
   handleSubmit,
 }) => {
-  if (!show) {
-    return null;
-  }
-
   const [dataForm, setDataForm] = useState({
     cpmk: null,
     tugas_ke: null,
@@ -33,6 +29,10 @@ const ModalEditNilai = ({
       [name]: value,
     });
   };
+
+  if (!show) {
+    return null;
+  }
 
   const handleClickSave = () => {
     const saveData = {
@@ -138,7 +138,7 @@ const ModalEditNilai = ({
                 {data?.tugas?.map((tugas, index) => {
                   const isEditing = editingRowIndex === index;
                   return (
-                    <div className="d-flex align-items-center">
+                    <div className="d-flex align-items-center" key={index}>
                       <div className="d-flex align-items-center mx-1 mb-2">
                         <label
                           className="form-label input mx-2"
@@ -262,22 +262,6 @@ const ModalEditNilai = ({
               </div>
             )}
           </div>
-          {/* <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-danger"
-              onClick={handleClose}
-            >
-              Batal
-            </button>
-            <button
-              type="button"
-              className="btn btn-success"
-              onClick={handleClickSave}
-            >
-              {loading ? "Loading..." : "Simpan"}
-            </button>
-          </div> */}
         </div>
       </div>
     </div>

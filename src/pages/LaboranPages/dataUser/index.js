@@ -30,7 +30,7 @@ const UserList = () => {
   const getSevimaDataUsers = async () => {
     setLoading(false);
     try {
-      const result = await getSevimaDataUsersApi({ periode: "20231" });
+      const result = await getSevimaDataUsersApi({ periode: "20221" });
       setUsers(result?.data?.data);
       setLoading(false);
     } catch (error) {
