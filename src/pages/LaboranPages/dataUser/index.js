@@ -6,6 +6,7 @@ import { BiTrashAlt } from "react-icons/bi";
 import {
   getDataUsersApi,
   getSevimaDataUsersApi,
+  postSevimaDataUsersApi,
   deleteUserApi,
 } from "../../../api/users/usersApi";
 import { Link } from "react-router-dom";
@@ -26,18 +27,6 @@ const UserList = () => {
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
 
-
-  const getSevimaDataUsers = async () => {
-    setLoading(false);
-    try {
-      const result = await getSevimaDataUsersApi({ periode: "20221" });
-      setUsers(result?.data?.data);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const getDataUsers = async () => {
     try {
       const result = await getDataUsersApi({});
@@ -46,6 +35,24 @@ const UserList = () => {
       console.log(error);
     }
   };
+
+  const updateDataUser = async () => {
+    setLoading(true);
+    try {
+      const result = await postSevimaDataUsersApi({
+        periode: "20231",
+        limit: 200,
+      });
+      if (result?.status === 201) {
+        getDataUsers();
+        setLoading(false);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
 
   const handleDelete = async () => {
     setLoadingDelete(true);
@@ -64,7 +71,7 @@ const UserList = () => {
 
   useEffect(() => {
     getDataUsers();
-    getSevimaDataUsers();
+    // getSevimaDataUsers();
   }, []);
 
   const handleSort = (key) => {
@@ -107,7 +114,7 @@ const UserList = () => {
           </div>
           <button
             type="button"
-            onClick={() => getSevimaDataUsers()}
+            onClick={updateDataUser}
             className="btn btn-warning col-4 mx-auto mb-2 text-white"
             id="submit"
           >

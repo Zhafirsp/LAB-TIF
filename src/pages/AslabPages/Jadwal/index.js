@@ -110,7 +110,7 @@ export default function JadwalLab() {
         console.log(error);
         setLoadingSave(false);
       }
-    } else {
+    } else if (selectedAsistens?.length > 0) {
       saveData = {
         periode: "20231",
         kelas_id: selectedData?.kelas_id,
@@ -129,6 +129,11 @@ export default function JadwalLab() {
         console.log(error);
         setLoadingSave(false);
       }
+    } else {
+      setOpenSelect(false);
+      setSelectedAsistens([]);
+      setSelectedNewAsisten("");
+      setLoadingSave(false);
     }
   };
 
@@ -281,7 +286,7 @@ export default function JadwalLab() {
                                     }
                                   >
                                     <option value="">
-                                      Pilih Asisten Baru...
+                                      Pilih Asisten...
                                     </option>
                                     {listAsisten?.map((data) => (
                                       <option
@@ -301,7 +306,8 @@ export default function JadwalLab() {
                               ))}
 
                           {openSelect &&
-                            selectedData?.praktik_id === jdwl?.praktik_id && (
+                            selectedData?.praktik_id === jdwl?.praktik_id &&
+                            jdwl?.JadwalPikets?.length < 3 && (
                               <div>
                                 <select
                                   className="form-select"
@@ -315,7 +321,7 @@ export default function JadwalLab() {
                                   disabled={selectedAsistens?.length > 0}
                                 >
                                   <option value="">
-                                    Pilih Asisten Baru...
+                                    Pilih Asisten...
                                   </option>
                                   {listAsisten?.map((data) => (
                                     <option

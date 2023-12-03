@@ -39,6 +39,11 @@ export default function Pengumuman() {
     }
   };
 
+  const openInNewTab = (url) => {
+    const newWindow = window.open(url, "_blank");
+    newWindow.opener = null;
+  };
+
   const handleDelete = async () => {
     setLoadingDelete(true);
     try {
@@ -117,7 +122,16 @@ export default function Pengumuman() {
                         <td>{index + 1}</td>
                         <td>{data?.judul || "-"}</td>
                         <td>{data?.dokumen || "-"}</td>
-                        <td>{data?.link || "-"}</td>
+                        <td>
+                          {data?.link ? ( 
+                          <button
+                            type="button"
+                            className="btn btn-primary my-1"
+                            onClick={() => openInNewTab(data?.dokumen)}
+                          >
+                            Unduh
+                          </button>) : ("-")}
+                          </td>
                         <td>{data?.tanggal_publish || "-"}</td>
                         {userData?.role === "Laboran" ? (
                           <>

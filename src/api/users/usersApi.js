@@ -34,3 +34,8 @@ export const deleteUserApi = (id) => {
 export const getSevimaDataUsersApi = (params) => {
   return apiClient.get(SEVIMA_USER_URL, { params });
 };
+
+
+export const postSevimaDataUsersApi = (data) => {
+  return apiClient.post(SEVIMA_USER_URL, data);
+};

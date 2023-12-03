@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import { useParams, useNavigate } from "react-router-dom";
 import ProfileImage from "../../../assets/images/profile.png";
 import { getDataUserByIdApi, putUserApi } from "../../../api/users/usersApi";
+
 const EditUser = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const EditUser = () => {
   const [dataForm, setDataForm] = useState({
     email: "",
     no_hp: null,
+    role: "",
   });
 
   const handleChange = (e) => {
@@ -60,6 +62,7 @@ const EditUser = () => {
     formdata.append("email", dataForm.email);
     formdata.append("no_hp", dataForm.no_hp);
     formdata.append("image_url", file);
+    formdata.append("role", dataForm.role);
     try {
       const result = await putUserApi(id, formdata);
       if (result?.status === 200) {
@@ -81,11 +84,13 @@ const EditUser = () => {
       setDataForm({
         email: dataUser?.email,
         no_hp: dataUser?.no_hp,
+        role: dataUser?.role,
       });
     } else {
       setDataForm({
         email: "",
         no_hp: null,
+        role: "",
       });
     }
   }, [dataUser]);
@@ -117,7 +122,6 @@ const EditUser = () => {
               <div className="mb-3">
                 <input
                   onChange={handleChangeFile}
-
                   type="file"
                   accept="image/*"
                   className="form-control"
@@ -166,6 +170,24 @@ const EditUser = () => {
                   id="no_hp"
                   name="no_hp"
                 />
+              </div>
+              <div>
+                <label className="form-label input" htmlFor="role">
+                  Role
+                </label>
+                <select
+                  id="role"
+                  name="role"
+                  className="form-select"
+                  aria-label="Default select example"
+                  value={dataForm?.role}
+                  onChange={handleChange}
+                >
+                  <option value="">Pilih role..</option>
+                  <option value="Mahasiswa">Mahasiswa</option>
+                  <option value="Asisten">Asisten</option>
+                  <option value="Laboran">Laboran</option>
+                </select>
               </div>
             </div>
             <button
