@@ -180,8 +180,8 @@ export default function JadwalLab() {
       <ModalConfirm
         show={openModalConfirm}
         handleClose={() => setOpenModalConfirm(false)}
-        title="Hapus Laboran"
-        message="Apakah anda yakin menghapus data laboran ini?"
+        title="Hapus Jadwal Asisten"
+        message="Apakah anda yakin menghapus data jadwal ini?"
         loading={loadingDelete}
         handleSubmit={handleDelete}
       />
